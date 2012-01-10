@@ -28,6 +28,9 @@
 #include <Plasma/Theme>
 #include <Plasma/ToolTipContent>
 #include <Plasma/ToolTipManager>
+#include <KDebug>
+
+#include <Activities/Consumer>
 
 Tomat::Tomat(QObject *parent, const QVariantList &args)
     : Plasma::Applet(parent, args),
@@ -54,6 +57,10 @@ void Tomat::init()
     connect(&workingTimer, SIGNAL(timeout()), this, SLOT(updateTime()));
     connect(Plasma::Theme::defaultTheme(), SIGNAL(themeChanged()), this, SLOT(reloadTheme()));
     connect(this, SIGNAL(activate()), this, SLOT(manuallySwitchState()));
+
+    Activities::Consumer *act = new Activities::Consumer(this);
+    connect(act, SIGNAL(currentActivityChanged(QString)), this, SLOT(currentActivityChanged(QString)));
+    m_currentActivity = act->currentActivity();
 }
 
 void Tomat::paintInterface(QPainter *p,
@@ -130,6 +137,15 @@ void Tomat::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 
     Applet::mousePressEvent(event);
+}
+
+void Tomat::currentActivityChanged(const QString &activity)
+{
+    m_currentActivity = activity;
+
+    if (currentState == WORKING) {
+        setState(IDLE);
+    }
 }
 
 void Tomat::toolTipAboutToShow()

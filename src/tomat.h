@@ -46,6 +46,7 @@ class Tomat : public Plasma::Applet
         enum { MIN_WORK_TIME = 10*60 }; // minimum working time in seconds
 
     public slots:
+        void currentActivityChanged(const QString &activity);
         void toolTipAboutToShow();
         void toolTipHidden();
 
@@ -66,6 +67,7 @@ class Tomat : public Plasma::Applet
         State currentState; 
         State oldState; 
         int secondsWorking;
+        QString m_currentActivity;
 };
 
 #endif
