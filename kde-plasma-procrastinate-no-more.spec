@@ -27,7 +27,7 @@ to help you avoid procrastination.
 
 
 %build
-%cmake .
+%{cmake_kde4}
 make %{?_smp_mflags}
 
 
