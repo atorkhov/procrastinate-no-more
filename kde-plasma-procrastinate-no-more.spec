@@ -4,7 +4,7 @@
 
 Name:           kde-plasma-procrastinate-no-more
 Version:        0.2
-Release:        1.%{git_date}git%{git_commit}%{?dist}.R
+Release:        1.%{git_date}git%{git_commit}%{?dist}
 Summary:        Simple widget for the KDE Plasma Workspaces to help you avoid procrastination
 
 Group:          Applications/Productivity
